@@ -8,7 +8,13 @@ async function checkWeather(cityname) {
     const response = await fetch (url + `&q=${cityname}`)
     var data = await response.json()
     
-    console.log(data)
+    if(response.status==404){
+        document.querySelector(".error").style.display='block'
+        document.querySelector(".weather").style.display='none'
+
+    }
+    else{
+        console.log(data)
     document.querySelector(".city").innerHTML=data.name
     document.querySelector( ".temp").innerHTML= Math.round(data.main.temp) + '°C'
     document.querySelector('.humidity').innerHTML=data.main.humidity+'%'
@@ -30,7 +36,10 @@ async function checkWeather(cityname) {
         weatherIcon.src="images/mist.png";
     }
     
-    
+    document.querySelector(".weather").style.display='block'
+    document.querySelector(".error").style.display='none'
+
+    }
     
 
 }
